@@ -6,25 +6,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ExampleController {
+public class ConnectionController {
 
     private final SftpService sftpService;
     private final KafkaService kafkaService;
 
-    public ExampleController(SftpService sftpService, KafkaService kafkaService) {
+    public ConnectionController(SftpService sftpService, KafkaService kafkaService) {
         this.sftpService = sftpService;
         this.kafkaService = kafkaService;
     }
 
     @GetMapping("/retry-sftp")
     public String retrySftp() {
-        sftpService.connectToSftp();
-        return "SFTP connection task executed with retries!";
+        return sftpService.connectToSftp();
     }
 
     @GetMapping("/retry-kafka")
     public String retryKafka() {
-        kafkaService.connectToKafka();
-        return "Kafka connection task executed with retries!";
+        return kafkaService.connectToKafka();
     }
 }

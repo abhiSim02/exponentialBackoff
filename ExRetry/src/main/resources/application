@@ -1,4 +1,0 @@
-# Retry configurations
-retry.max-retries=5           # Maximum number of retry attempts
-retry.initial-delay=1000      # Initial delay in milliseconds
-retry.max-delay=8000          # Maximum delay in milliseconds
