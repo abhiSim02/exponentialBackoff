@@ -18,15 +18,6 @@ public class ConnectionRetry {
     public ConnectionRetry(RetryConfig retryConfig) {
         this.retryConfig = retryConfig;
     }
-
-    /**
-     * Executes the given task with retry logic.
-     *
-     * @param task               The task to execute.
-     * @param retryableExceptions Exceptions that are considered retryable.
-     * @param <T>                The return type of the task.
-     * @return The result of the task if successful, or a failure message.
-     */
     public <T> String executeWithRetry(Supplier<T> task, Set<Class<? extends Exception>> retryableExceptions) {
         int maxRetries = retryConfig.getMaxRetries();
         long initialDelay = retryConfig.getInitialDelay();
@@ -51,8 +42,10 @@ public class ConnectionRetry {
         }
     }
 
-    private void logAttempt(int attempt) {
-        logger.info("Attempting task execution, attempt number: {}", attempt + 1);
+    private String logAttempt(int attempt) {
+        String message = "Attempting task execution, attempt number: " + (attempt + 1);
+        logger.info(message);
+        return message;
     }
 
     private boolean shouldStopRetry(int attempt, int maxRetries, Exception ex, Set<Class<? extends Exception>> retryableExceptions) {
